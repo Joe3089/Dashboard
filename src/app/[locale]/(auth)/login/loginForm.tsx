@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { LoginResponse } from "@vitalfit/sdk";
 import {
   LoginFormData,
   LoginPayload,
@@ -12,15 +13,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { colors, montserrat } from "@/styles/styles";
 import InputField from "@/components/ui/InputField";
-import { api } from "@/lib/sdk-config"; 
+import { api } from "@/lib/sdk-config";
 import { useAuth } from "@/context/AuthContext";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import LocaleSwitcher from "@/components/layout/localeSwitcher/LocaleSwitcher";
 
+type Challenge = { id: string; hint?: string };
+
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [challenge, setChallenge] = useState<Challenge | null>(null);
+  const [code, setCode] = useState("");
+  const [resent, setResent] = useState(false);
 
   const { login } = useAuth();
   const router = useRouter();
@@ -35,6 +41,20 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  const completeLogin = async (response: LoginResponse) => {
+    const accessToken = response.token;
+    const refreshToken = response.refresh_token;
+
+    if (!accessToken || !refreshToken) {
+      throw new Error("Faltan tokens en la respuesta del servidor");
+    }
+
+    await login(accessToken, refreshToken);
+
+    // HU-ADMIN-07: an expired password must be changed before continuing.
+    router.replace(response.password_expired ? "/settings/profile?tab=security&password_expired=1" : "/");
+  };
+
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     setErrorMessage(null);
@@ -45,23 +65,22 @@ export default function LoginForm() {
     };
 
     try {
-      const response = await api.auth.login(payload) as any;
-      const accessToken = response.access_token || response.token;
-      const refreshToken = response.refresh_token;
+      const response = await api.auth.login(payload);
 
-      if (!accessToken || !refreshToken) {
-        throw new Error("Faltan tokens en la respuesta del servidor");
+      // HU-ADMIN-03: administrative users must confirm a code sent by email.
+      if (response.two_factor_required && response.challenge_id) {
+        setChallenge({ id: response.challenge_id, hint: response.email_hint });
+        setCode("");
+        setResent(false);
+        return;
       }
 
-      await login(accessToken, refreshToken);
-      
-      router.replace("/");
-
+      await completeLogin(response);
     } catch (err) {
       console.error("Error al iniciar sesión:", err);
       if (err instanceof Error) {
         const status = (err as any).response?.status || (err as any).status;
-        
+
         if (status === 401) {
           setErrorMessage(t("errorCredentials"));
         } else {
@@ -72,6 +91,37 @@ export default function LoginForm() {
       }
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const onVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!challenge) {
+      return;
+    }
+    setIsLoading(true);
+    setErrorMessage(null);
+    try {
+      const response = await api.auth.verifyTwoFactor({ challenge_id: challenge.id, code });
+      await completeLogin(response);
+    } catch {
+      setErrorMessage(t("twoFactor.invalidCode"));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onResendCode = async () => {
+    if (!challenge) {
+      return;
+    }
+    setErrorMessage(null);
+    try {
+      await api.auth.resendTwoFactor(challenge.id);
+      setResent(true);
+    } catch {
+      setChallenge(null);
+      setErrorMessage(t("twoFactor.expired"));
     }
   };
 
@@ -91,57 +141,103 @@ export default function LoginForm() {
             priority
           />
         </div>
-        
+
         <h2 className="text-center text-3xl font-extrabold text-gray-900 tracking-tight mb-2">
-          {t("title")}
+          {challenge ? t("twoFactor.title") : t("title")}
         </h2>
         <p className="text-center text-gray-500 text-base max-w-[280px]">
-          {t("subtitle")}
+          {challenge ? t("twoFactor.description", { email: challenge.hint ?? "" }) : t("subtitle")}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <div className="space-y-4">
+      {challenge ? (
+        <form onSubmit={onVerifyCode} className="space-y-5">
           <InputField
-            label={t("emailLabel")}
-            type="email"
-            placeholder={t("emailPlaceholder")}
-            {...register("email")}
-            error={errors.email?.message}
-            className="hover:border-gray-300 transition-colors"
+            label={t("twoFactor.codeLabel")}
+            type="text"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            maxLength={6}
+            placeholder="000000"
+            value={code}
+            onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+            className="text-center text-lg tracking-[0.5em]"
+            autoFocus
           />
 
-          <div className="space-y-1">
+          <Button
+            type="submit"
+            disabled={isLoading || code.length !== 6}
+            variant="default"
+            size="lg"
+            className="py-4 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-[0.98] w-full"
+          >
+            {t("twoFactor.verifyButton")}
+          </Button>
+
+          <div className="flex justify-between text-sm">
+            <button
+              type="button"
+              onClick={() => setChallenge(null)}
+              className="text-gray-500 hover:underline"
+            >
+              {t("twoFactor.back")}
+            </button>
+            <button
+              type="button"
+              onClick={onResendCode}
+              disabled={resent}
+              style={{ color: colors.primary }}
+              className="font-semibold hover:opacity-80 disabled:opacity-60"
+            >
+              {resent ? t("twoFactor.resent") : t("twoFactor.resend")}
+            </button>
+          </div>
+        </form>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <div className="space-y-4">
             <InputField
-              label={t("passwordLabel")}
-              type="password"
-              placeholder={t("passwordPlaceholder")}
-              {...register("password")}
-              error={errors.password?.message}
-              className="hover:border-gray-100 transition-colors"
+              label={t("emailLabel")}
+              type="email"
+              placeholder={t("emailPlaceholder")}
+              {...register("email")}
+              error={errors.email?.message}
+              className="hover:border-gray-300 transition-colors"
             />
-            <div className="flex justify-end">
-              <Link
-                href="/forgotPassword"
-                style={{ color: colors.primary }}
-                className="text-sm font-semibold hover:opacity-80 transition-opacity duration-200"
-              >
-                {t("forgotPasswordLink")}
-              </Link>
+
+            <div className="space-y-1">
+              <InputField
+                label={t("passwordLabel")}
+                type="password"
+                placeholder={t("passwordPlaceholder")}
+                {...register("password")}
+                error={errors.password?.message}
+                className="hover:border-gray-100 transition-colors"
+              />
+              <div className="flex justify-end">
+                <Link
+                  href="/forgotPassword"
+                  style={{ color: colors.primary }}
+                  className="text-sm font-semibold hover:opacity-80 transition-opacity duration-200"
+                >
+                  {t("forgotPasswordLink")}
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
 
-        <Button
-          type="submit"
-          disabled={isLoading}
-          variant="default"
-          size="lg"
-          className="py-4 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-[0.98] w-full"
-        >
-          {t("accessButton")}
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            variant="default"
+            size="lg"
+            className="py-4 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-[0.98] w-full"
+          >
+            {t("accessButton")}
+          </Button>
+        </form>
+      )}
       {errorMessage && (
         <div
           className="mt-6 p-4 text-center text-red-600 bg-red-50 border border-red-100 rounded-xl text-sm font-medium animate-in fade-in slide-in-from-top-2"

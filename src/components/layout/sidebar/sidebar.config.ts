@@ -58,6 +58,7 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
           icon: UserIcon,
           subitems: [
             { label: "RegistroConsulta", href: "/clients/register" }, 
+            { label: "QuejasSugerencias", href: "/clients/feedback" },
           ],
         },
         {
@@ -87,6 +88,8 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
             { label: "ReporteClientes", href: "/analytics/reports/clients" },
             { label: "ReporteFinanciero", href: "/analytics/reports/financial" },
             { label: "ReporteVentas", href: "/analytics/reports/sales" },
+            { label: "AnaliticaAvanzada", href: "/analytics/insights" },
+            { label: "AutomatizacionReportes", href: "/analytics/automation" },
           ],
         },
       ],
@@ -112,6 +115,7 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
             icon: Cog6ToothIcon, 
             subitems: [
                 { label: "PoliticasComerciales", href: "/settings/commercial-policies" },
+                { label: "PoliticasContrasena", href: "/settings/security" },
                 
             ]
         },
@@ -138,6 +142,7 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
       title: "Operacion",
       items: [
         { label: "ClientesSocios", icon: UserIcon, href: "/clients/register"},
+        { label: "QuejasSugerencias", icon: Megaphone, href: "/clients/feedback" },
         { label: "AgendaCalendario", icon: Calendar, href: "/operations/calendar" },
         { label: "ReservasActivas", icon: Calendar, href: "/operations/reservations" },
       ],
@@ -155,6 +160,7 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
         { label: "ReporteClientes", icon: UserIcon, href: "/analytics/reports/clients" },
         { label: "ReporteFinanciero", icon: ChartBar, href: "/analytics/reports/financial"  },
         { label: "ReporteVentas", icon: ChartBar, href: "/analytics/reports/sales"  },
+        { label: "AnaliticaAvanzada", icon: ChartBar, href: "/analytics/insights" },
       ],
     },
     
@@ -186,6 +192,8 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
         { label: "ReporteClientes", icon: UserIcon, href: "/analytics/reports/clients" },
         { label: "ReporteFinanciero", icon: ChartBar, href: "/analytics/reports/financial"  },
         { label: "ReporteVentas", icon: ChartBar, href: "/analytics/reports/sales"  },
+        { label: "AnaliticaAvanzada", icon: ChartBar, href: "/analytics/insights" },
+        { label: "AutomatizacionReportes", icon: ChartBar, href: "/analytics/automation" },
       ],
     },
     
@@ -199,6 +207,8 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
         { label: "ReporteClientes", icon: UserIcon, href: "/analytics/reports/clients" },
         { label: "ReporteFinanciero", icon: ChartBar, href: "/analytics/reports/financial"  },
         { label: "ReporteVentas", icon: DollarSign, href: "/analytics/reports/sales"  },
+        { label: "AnaliticaAvanzada", icon: ChartBar, href: "/analytics/insights" },
+        { label: "AutomatizacionReportes", icon: ChartBar, href: "/analytics/automation" },
       ],
     },
   ],
@@ -211,7 +221,7 @@ export const sidebarMenusByRole: Record<UserRole, NavSection[]> = {
         { label: "ClientesSocios", icon: UsersIcon, href: "/clients/register"  },
         { label: "AgendaCalendario", icon: Calendar, href: "/operations/calendar" },
         { label: "ReservasActivas", icon: Calendar, href: "/operations/reservations" },
-        // { label: "QuejasSugerencias", icon: Megaphone, href: "/clients/feedback" },
+        { label: "QuejasSugerencias", icon: Megaphone, href: "/clients/feedback" },
       ],
     },
   ],

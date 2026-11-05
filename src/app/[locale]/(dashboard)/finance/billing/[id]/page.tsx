@@ -22,6 +22,7 @@ import { useGetUser } from "@/hooks/users/useGetUser";
 import { api } from "@/lib/sdk-config";
 import { InvoiceDetailForm } from "@/components/modules/billing/InvoiceDetailForm";
 import useGetBranch from "@/hooks/branches/useGetBranch";
+import { InvoiceAdjustmentsSection } from "@/components/modules/billing/InvoiceAdjustmentsSection";
 
 export default function InvoiceDetailPage() {
   const t = useTranslations("finance.Billing.detailPage");
@@ -200,6 +201,7 @@ export default function InvoiceDetailPage() {
           </div>
         </div>
       ) : (
+        <>
         <InvoiceDetailForm
           invoice={invoice}
           user={user}
@@ -208,6 +210,12 @@ export default function InvoiceDetailPage() {
           pendingAmount={financialSummary.pendingAmount}
           branchName={branchDetail?.name}
         />
+        <InvoiceAdjustmentsSection
+          invoiceId={id as string}
+          invoiceStatus={invoice?.status}
+          onApplied={fetchInvoiceDetails}
+        />
+        </>
       )}
     </div>
   );

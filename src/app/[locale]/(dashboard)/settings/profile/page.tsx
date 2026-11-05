@@ -58,6 +58,11 @@ export default function SettingsPage() {
         <p className="text-muted-foreground">
           {t("description")}
         </p>
+        {searchParams.get("password_expired") === "1" && (
+          <div role="alert" className="mt-4 rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
+            {t("passwordExpired")}
+          </div>
+        )}
       </div>
 
       <Separator className="my-6" />

@@ -17,6 +17,7 @@ import { ClientEditForm } from "@/components/modules/clients/ClientEditForm";
 import { ClientMedicalSection } from "@/components/modules/clients/ClientMedicalSection";
 import { BlockClientDialog } from "@/components/modules/clients/BlockClientDialog";
 import { useGetUser } from "@/hooks/users/useGetUser";
+import { ClientCrmPanel } from "@/components/modules/clients/ClientCrmPanel";
 
 export enum UserRole {
   SUPER_ADMIN = "super_admin",
@@ -202,6 +203,8 @@ export default function ClientDetails() {
               isUnblocking={isUnblocking}
             />
           </div>
+
+          {!isEditing && <ClientCrmPanel clientId={user.user_id} />}
 
           {!isEditing && user.client_membership && (
             <div className="animate-in slide-in-from-bottom-4 duration-500">

@@ -119,7 +119,18 @@
     "accessButton": "Access Dashboard",
     "errorCredentials": "Invalid credentials. Please verify them.",
     "errorUnexpected": "An unexpected error occurred. Please try again.",
-    "errorGeneric": "Login failed."
+    "errorGeneric": "Login failed.",
+    "twoFactor": {
+      "title": "Two-step verification",
+      "description": "We sent a 6-digit code to {email}. Enter it to continue.",
+      "codeLabel": "Verification code",
+      "verifyButton": "Verify and sign in",
+      "back": "Back",
+      "resend": "Resend code",
+      "resent": "Code resent",
+      "invalidCode": "Invalid or expired code. Please try again.",
+      "expired": "Verification expired. Please sign in again."
+    }
   },
   "ForgotPasswordPage": {
     "title": "RECOVER PASSWORD",
@@ -251,7 +262,9 @@
     "no_branches": "No branches assigned",
     "system_footer": "Vitalfit System",
     "PoliticasComerciales": "Commercial Policies",
-    "MisClientes": "My clients"
+    "MisClientes": "My clients",
+    "AnaliticaAvanzada": "Advanced Analytics",
+    "AutomatizacionReportes": "Report Automation"
   },
   "LocaleSwitcher": {
     "label": "Change language",
@@ -577,7 +590,7 @@
         "no_branch": "No branch assigned"
       },
       "stats": {
-       "next_class": "Next Class",
+        "next_class": "Next Class",
         "students_today_count": "Students Today",
         "students_today_desc": "Total confirmed for today",
         "attendance_rate": "Attendance Rate",
@@ -1677,7 +1690,7 @@
       "emptyWallet": "Client has no active service packages",
       "updateButton": "Update balances",
       "backButton": "Back to Client Profile",
-  "walletSubtitle": "Credit management and service usage",
+      "walletSubtitle": "Credit management and service usage",
       "status": {
         "available": "Balance Available",
         "critical": "Critical Balance!",
@@ -3226,7 +3239,8 @@
         "title": "Delete this class?",
         "description": "This action cannot be undone and will cancel all existing bookings.",
         "action": "Permanently delete"
-      }
+      },
+      "cancelled_notice": "Class cancelled. Reason: {reason}"
     },
     "attendance_sheet": {
       "title": "Attendance Control",
@@ -3385,7 +3399,8 @@
         "title": "Security",
         "description": "Protect your access to the gym."
       }
-    }
+    },
+    "passwordExpired": "Your password has expired according to the security policy. Please change it to continue."
   },
   "Notifications": {
     "Center": {
@@ -3459,6 +3474,254 @@
         "updateError": "Error updating profile",
         "discarded": "Changes discarded"
       }
+    }
+  },
+  "advanced": {
+    "cancelClass": {
+      "button": "Cancel class",
+      "title": "Cancel class",
+      "description": "Confirmed bookings will be cancelled, consumed credits refunded and clients notified.",
+      "placeholder": "Cancellation reason (required)",
+      "close": "Close",
+      "saving": "Cancelling...",
+      "confirm": "Confirm cancellation",
+      "success": "Class cancelled. Affected bookings: {count}",
+      "error": "Could not cancel the class"
+    },
+    "adjustments": {
+      "title": "Post-sale discounts",
+      "percentage": "Percentage",
+      "fixed": "Fixed amount",
+      "reasonPlaceholder": "Discount reason (required)",
+      "saving": "Applying...",
+      "apply": "Apply discount",
+      "policyHint": "The accumulated discount cannot exceed the maximum defined in the commercial policies.",
+      "date": "Date",
+      "discount": "Discount",
+      "previous": "Previous total",
+      "new": "New total",
+      "reason": "Reason",
+      "by": "Applied by",
+      "success": "Discount applied",
+      "error": "Could not apply the discount"
+    },
+    "clientCrm": {
+      "scoreTitle": "Client score",
+      "noScore": "No scoring data",
+      "segments": {
+        "VIP": "VIP",
+        "Regular": "Regular",
+        "New": "New",
+        "AtRisk": "At risk"
+      },
+      "frequency": "Frequency: {points} pts ({visits} visits in 90 days)",
+      "punctuality": "Payment punctuality: {points} pts ({onTime}/{total} invoices on time)",
+      "referrals": "Referrals: not available (referral program not implemented)",
+      "tagsTitle": "Campaign tags",
+      "noTags": "No tags",
+      "remove": "Remove",
+      "selectTag": "Select tag",
+      "assign": "Assign",
+      "newTagPlaceholder": "New tag",
+      "create": "Create",
+      "error": "Could not update tags"
+    },
+    "security": {
+      "forbidden": "Only the Super Admin can manage security.",
+      "saved": "Settings saved",
+      "error": "Could not save",
+      "title": "Security & passwords",
+      "subtitle": "Password policy and two-factor authentication for administrative staff",
+      "saving": "Saving...",
+      "save": "Save",
+      "passwordPolicy": "Password policy",
+      "minLength": "Minimum length",
+      "require_uppercase": "Require uppercase",
+      "require_lowercase": "Require lowercase",
+      "require_number": "Require numbers",
+      "require_special": "Require special characters",
+      "expirationDays": "Expiration (days)",
+      "expirationHint": "0 = passwords never expire",
+      "twoFactor": "Two-factor authentication (2FA)",
+      "twoFactorRequired": "Mandatory 2FA on the dashboard",
+      "twoFactorHint": "Dashboard sign-ins will send a 6-digit code to the user's email (valid 10 minutes, single use).",
+      "lastUpdate": "Last update: {date}"
+    },
+    "feedback": {
+      "title": "Complaints & suggestions",
+      "subtitle": "Customer care follow-up and contact form messages",
+      "tabs": {
+        "feedback": "Complaints & suggestions",
+        "contact": "Contact form"
+      },
+      "allStatuses": "All statuses",
+      "status": {
+        "open": "Open",
+        "in_progress": "In progress",
+        "resolved": "Resolved",
+        "closed": "Closed"
+      },
+      "allTypes": "All types",
+      "type": {
+        "complaint": "Complaint",
+        "suggestion": "Suggestion",
+        "compliment": "Compliment"
+      },
+      "new": "Register",
+      "date": "Date",
+      "client": "Client",
+      "typeLabel": "Type",
+      "subject": "Subject",
+      "branch": "Branch",
+      "statusLabel": "Status",
+      "empty": "No records",
+      "manage": "Manage",
+      "prev": "Previous",
+      "next": "Next",
+      "error": "Something went wrong",
+      "created": "Record created",
+      "searchClient": "Search client by name or document",
+      "search": "Search",
+      "selectClient": "Select client",
+      "description": "Description",
+      "cancel": "Cancel",
+      "save": "Save",
+      "updated": "Record updated",
+      "resolutionNotes": "Resolution notes",
+      "notesRequired": "Notes are required to resolve or close",
+      "contactStatus": {
+        "new": "New",
+        "read": "Read",
+        "answered": "Answered"
+      },
+      "emptyContact": "No messages",
+      "markRead": "Mark as read",
+      "markAnswered": "Mark as answered"
+    },
+    "insights": {
+      "error": "Something went wrong",
+      "detected": "Detection finished: {count} new alerts",
+      "title": "Advanced analytics",
+      "subtitle": "Web conversion, NPS, RevPAS, branch benchmarking, churn risk and anomaly alerts",
+      "conversion": "Web conversion rate",
+      "conversionHint": "{purchases} purchases out of {visitors} visitors",
+      "signupRate": "Sign-up rate",
+      "signupHint": "{signups} sign-ups",
+      "nps": "NPS",
+      "npsHint": "{responses} answers · {promoters} promoters · {detractors} detractors",
+      "revpas": "RevPAS",
+      "revpasHint": "{revenue} / {spaces} available spaces",
+      "alerts": "KPI anomaly alerts",
+      "detect": "Detect now",
+      "noAlerts": "No open alerts",
+      "severity": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "acknowledge": "Mark as reviewed",
+      "segments": "Client segments",
+      "segment": {
+        "VIP": "VIP",
+        "Regular": "Regular",
+        "New": "New",
+        "AtRisk": "At risk"
+      },
+      "benchmark": "Branch benchmarking",
+      "benchmarkHint": "In brackets: index vs. network average (100 = average). Green: best practice for the metric.",
+      "branch": "Branch",
+      "metric": {
+        "revenue": "Revenue",
+        "new_clients": "New clients",
+        "active_members": "Active members",
+        "check_ins": "Check-ins",
+        "occupancy_rate": "Occupancy %",
+        "nps": "NPS"
+      },
+      "score": "Index",
+      "revpasByService": "RevPAS by service",
+      "service": "Service",
+      "occupancy": "Occupancy",
+      "churn": "Clients at risk of churn",
+      "churnHint": "Predictive score based on absence, attendance drop and upcoming membership expiration.",
+      "client": "Client",
+      "risk": "Risk",
+      "factors": "Factors",
+      "noChurn": "No clients at risk",
+      "npsComments": "Recent NPS comments"
+    },
+    "automation": {
+      "defaultTemplate": "Default template",
+      "type": {
+        "financial": "Financial",
+        "sales": "Sales",
+        "clients": "Clients",
+        "benchmark": "Benchmarking"
+      },
+      "title": "Report automation",
+      "subtitle": "Branded exports, scheduled emails, temporary links and BI integration",
+      "tabs": {
+        "download": "Export",
+        "schedules": "Scheduled emails",
+        "links": "Temporary links",
+        "templates": "Templates",
+        "api": "BI API"
+      },
+      "error": "Something went wrong",
+      "downloadTitle": "Export report",
+      "reportType": "Report",
+      "format": "Format",
+      "template": "Template",
+      "period": "Period",
+      "generating": "Generating...",
+      "download": "Download",
+      "scheduleCreated": "Schedule created",
+      "newSchedule": "New scheduled email",
+      "name": "Name",
+      "frequency": "Frequency",
+      "frequencies": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
+      },
+      "recipients": "Recipients (comma separated)",
+      "createSchedule": "Schedule",
+      "lastSent": "Last sent",
+      "never": "Never",
+      "saved": "Saved",
+      "sent": "Report sent",
+      "sendNow": "Send now",
+      "deleted": "Deleted",
+      "newLink": "Share a report through a temporary URL",
+      "expiresInHours": "Validity (hours)",
+      "createLink": "Generate link",
+      "copied": "Copied to clipboard",
+      "copy": "Copy",
+      "linkOnce": "Save the link now: for security reasons it cannot be shown again.",
+      "expires": "Expires",
+      "accesses": "{count} downloads",
+      "revoke": "Revoke",
+      "cannotDeleteDefault": "The template cannot be deleted",
+      "editTemplate": "Edit template",
+      "newTemplate": "New template",
+      "color": "Brand color",
+      "header": "Header",
+      "footer": "Footer",
+      "orientation": "PDF orientation",
+      "landscape": "Landscape",
+      "portrait": "Portrait",
+      "isDefault": "Use as default template",
+      "save": "Save",
+      "cancel": "Cancel",
+      "default": "Default",
+      "edit": "Edit",
+      "newKey": "New API key for BI tools",
+      "apiHint": "Send the key in the X-API-Key header to /v1/bi/kpis, /v1/bi/sales, /v1/bi/financial, /v1/bi/benchmark, /v1/bi/revpas, /v1/bi/nps or /v1/bi/conversion.",
+      "expiresAt": "Expires (optional)",
+      "createKey": "Create API key",
+      "keyOnce": "Copy the key now: it will not be shown again.",
+      "lastUsed": "Last used",
+      "revoked": "Revoked"
     }
   }
 }

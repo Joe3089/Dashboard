@@ -119,7 +119,18 @@
     "accessButton": "Acceder al Dashboard",
     "errorCredentials": "Credenciales no válidas. Por favor, verifícalas.",
     "errorUnexpected": "Ocurrió un error inesperado. Inténtalo de nuevo.",
-    "errorGeneric": "Fallo en el inicio de sesión."
+    "errorGeneric": "Fallo en el inicio de sesión.",
+    "twoFactor": {
+      "title": "Verificación en dos pasos",
+      "description": "Enviamos un código de 6 dígitos a {email}. Ingrésalo para continuar.",
+      "codeLabel": "Código de verificación",
+      "verifyButton": "Verificar y acceder",
+      "back": "Volver",
+      "resend": "Reenviar código",
+      "resent": "Código reenviado",
+      "invalidCode": "Código inválido o vencido. Inténtalo de nuevo.",
+      "expired": "La verificación expiró. Inicia sesión nuevamente."
+    }
   },
   "ForgotPasswordPage": {
     "title": "RECUPERAR CONTRASEÑA",
@@ -251,7 +262,9 @@
     "no_branches": "No hay sedes asignadas",
     "system_footer": "Sistema Vitalfit",
     "PoliticasComerciales": "Políticas Comerciales",
-    "MisClientes": "Mis clientes"
+    "MisClientes": "Mis clientes",
+    "AnaliticaAvanzada": "Analítica Avanzada",
+    "AutomatizacionReportes": "Automatización de Reportes"
   },
   "LocaleSwitcher": {
     "label": "Cambiar idioma",
@@ -1679,7 +1692,7 @@
       "emptyWallet": "El cliente no tiene paquetes de servicios activos",
       "updateButton": "Actualizar saldos",
       "backButton": "Volver al Perfil del Cliente",
-  "walletSubtitle": "Gestión de créditos y consumo de servicios",
+      "walletSubtitle": "Gestión de créditos y consumo de servicios",
       "status": {
         "available": "Saldo Disponible",
         "critical": "¡Saldo Crítico!",
@@ -1827,7 +1840,6 @@
         "active_member": "Miembro Activo",
         "inactive": "Inactivo",
         "verified": "Email Verificado"
-        
       },
       "actions": {
         "edit": "Editar Perfil",
@@ -3223,7 +3235,8 @@
         "title": "¿Eliminar esta clase?",
         "description": "Esta acción no se puede deshacer y cancelará todas las reservas existentes.",
         "action": "Eliminar permanentemente"
-      }
+      },
+      "cancelled_notice": "Clase cancelada. Motivo: {reason}"
     },
     "attendance_sheet": {
       "title": "Control de Asistencia",
@@ -3384,7 +3397,8 @@
         "title": "Seguridad",
         "description": "Protege tu acceso al gimnasio."
       }
-    }
+    },
+    "passwordExpired": "Tu contraseña expiró según la política de seguridad. Por favor cámbiala para continuar."
   },
   "Notifications": {
     "Center": {
@@ -3430,7 +3444,7 @@
       "loading": "Cargando alumnos..."
     }
   },
- "account": {
+  "account": {
     "profile": {
       "manageInfo": "Gestiona tu información personal.",
       "staff": "Staff",
@@ -3458,6 +3472,254 @@
         "updateError": "Error al actualizar perfil",
         "discarded": "Cambios descartados"
       }
+    }
+  },
+  "advanced": {
+    "cancelClass": {
+      "button": "Cancelar clase",
+      "title": "Cancelar clase",
+      "description": "Las reservas confirmadas se cancelarán, se reembolsarán los créditos consumidos y se notificará a los clientes.",
+      "placeholder": "Motivo de la cancelación (obligatorio)",
+      "close": "Cerrar",
+      "saving": "Cancelando...",
+      "confirm": "Confirmar cancelación",
+      "success": "Clase cancelada. Reservas afectadas: {count}",
+      "error": "No se pudo cancelar la clase"
+    },
+    "adjustments": {
+      "title": "Descuentos post-venta",
+      "percentage": "Porcentaje",
+      "fixed": "Monto fijo",
+      "reasonPlaceholder": "Motivo del descuento (obligatorio)",
+      "saving": "Aplicando...",
+      "apply": "Aplicar descuento",
+      "policyHint": "El descuento acumulado no puede superar el máximo definido en las políticas comerciales.",
+      "date": "Fecha",
+      "discount": "Descuento",
+      "previous": "Total anterior",
+      "new": "Nuevo total",
+      "reason": "Motivo",
+      "by": "Aplicado por",
+      "success": "Descuento aplicado",
+      "error": "No se pudo aplicar el descuento"
+    },
+    "clientCrm": {
+      "scoreTitle": "Scoring del cliente",
+      "noScore": "Sin datos de scoring",
+      "segments": {
+        "VIP": "VIP",
+        "Regular": "Regular",
+        "New": "Nuevo",
+        "AtRisk": "En riesgo"
+      },
+      "frequency": "Frecuencia: {points} pts ({visits} visitas en 90 días)",
+      "punctuality": "Puntualidad de pagos: {points} pts ({onTime}/{total} facturas a tiempo)",
+      "referrals": "Referidos: no disponible (programa de referidos no implementado)",
+      "tagsTitle": "Etiquetas para campañas",
+      "noTags": "Sin etiquetas",
+      "remove": "Quitar",
+      "selectTag": "Seleccionar etiqueta",
+      "assign": "Asignar",
+      "newTagPlaceholder": "Nueva etiqueta",
+      "create": "Crear",
+      "error": "No se pudo actualizar las etiquetas"
+    },
+    "security": {
+      "forbidden": "Solo el Super Admin puede gestionar la seguridad.",
+      "saved": "Configuración guardada",
+      "error": "No se pudo guardar",
+      "title": "Seguridad y contraseñas",
+      "subtitle": "Políticas de contraseña y autenticación de dos factores para el personal administrativo",
+      "saving": "Guardando...",
+      "save": "Guardar",
+      "passwordPolicy": "Política de contraseñas",
+      "minLength": "Longitud mínima",
+      "require_uppercase": "Requerir mayúsculas",
+      "require_lowercase": "Requerir minúsculas",
+      "require_number": "Requerir números",
+      "require_special": "Requerir caracteres especiales",
+      "expirationDays": "Expiración (días)",
+      "expirationHint": "0 = la contraseña no expira",
+      "twoFactor": "Autenticación de dos factores (2FA)",
+      "twoFactorRequired": "2FA obligatorio en el dashboard",
+      "twoFactorHint": "Al iniciar sesión en el panel administrativo se enviará un código de 6 dígitos al correo del usuario (válido 10 minutos, un solo uso).",
+      "lastUpdate": "Última actualización: {date}"
+    },
+    "feedback": {
+      "title": "Quejas y sugerencias",
+      "subtitle": "Seguimiento de la atención al cliente y mensajes del formulario de contacto",
+      "tabs": {
+        "feedback": "Quejas y sugerencias",
+        "contact": "Formulario de contacto"
+      },
+      "allStatuses": "Todos los estados",
+      "status": {
+        "open": "Abierta",
+        "in_progress": "En proceso",
+        "resolved": "Resuelta",
+        "closed": "Cerrada"
+      },
+      "allTypes": "Todos los tipos",
+      "type": {
+        "complaint": "Queja",
+        "suggestion": "Sugerencia",
+        "compliment": "Felicitación"
+      },
+      "new": "Registrar",
+      "date": "Fecha",
+      "client": "Cliente",
+      "typeLabel": "Tipo",
+      "subject": "Asunto",
+      "branch": "Sucursal",
+      "statusLabel": "Estado",
+      "empty": "No hay registros",
+      "manage": "Gestionar",
+      "prev": "Anterior",
+      "next": "Siguiente",
+      "error": "Ocurrió un error",
+      "created": "Registro creado",
+      "searchClient": "Buscar cliente por nombre o documento",
+      "search": "Buscar",
+      "selectClient": "Seleccionar cliente",
+      "description": "Descripción",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "updated": "Registro actualizado",
+      "resolutionNotes": "Notas de resolución",
+      "notesRequired": "Las notas son obligatorias para resolver o cerrar",
+      "contactStatus": {
+        "new": "Nuevo",
+        "read": "Leído",
+        "answered": "Respondido"
+      },
+      "emptyContact": "No hay mensajes",
+      "markRead": "Marcar leído",
+      "markAnswered": "Marcar respondido"
+    },
+    "insights": {
+      "error": "Ocurrió un error",
+      "detected": "Detección ejecutada: {count} nuevas alertas",
+      "title": "Analítica avanzada",
+      "subtitle": "Conversión web, NPS, RevPAS, benchmarking entre sedes, riesgo de abandono y alertas de anomalías",
+      "conversion": "Tasa de conversión web",
+      "conversionHint": "{purchases} compras de {visitors} visitantes",
+      "signupRate": "Tasa de registro",
+      "signupHint": "{signups} registros",
+      "nps": "NPS",
+      "npsHint": "{responses} respuestas · {promoters} promotores · {detractors} detractores",
+      "revpas": "RevPAS",
+      "revpasHint": "{revenue} / {spaces} espacios disponibles",
+      "alerts": "Alertas de anomalías en KPIs",
+      "detect": "Detectar ahora",
+      "noAlerts": "Sin alertas abiertas",
+      "severity": {
+        "low": "Baja",
+        "medium": "Media",
+        "high": "Alta"
+      },
+      "acknowledge": "Marcar como revisada",
+      "segments": "Segmentos de clientes",
+      "segment": {
+        "VIP": "VIP",
+        "Regular": "Regular",
+        "New": "Nuevos",
+        "AtRisk": "En riesgo"
+      },
+      "benchmark": "Benchmarking entre sedes",
+      "benchmarkHint": "Entre paréntesis: índice vs. promedio de la red (100 = promedio). En verde: mejor práctica de la métrica.",
+      "branch": "Sucursal",
+      "metric": {
+        "revenue": "Ingresos",
+        "new_clients": "Nuevos clientes",
+        "active_members": "Miembros activos",
+        "check_ins": "Check-ins",
+        "occupancy_rate": "Ocupación %",
+        "nps": "NPS"
+      },
+      "score": "Índice",
+      "revpasByService": "RevPAS por servicio",
+      "service": "Servicio",
+      "occupancy": "Ocupación",
+      "churn": "Clientes en riesgo de abandono",
+      "churnHint": "Score predictivo según ausencia, caída de asistencia y vencimiento próximo de membresía.",
+      "client": "Cliente",
+      "risk": "Riesgo",
+      "factors": "Factores",
+      "noChurn": "No hay clientes en riesgo",
+      "npsComments": "Comentarios recientes de NPS"
+    },
+    "automation": {
+      "defaultTemplate": "Plantilla por defecto",
+      "type": {
+        "financial": "Financiero",
+        "sales": "Ventas",
+        "clients": "Clientes",
+        "benchmark": "Benchmarking"
+      },
+      "title": "Automatización de reportes",
+      "subtitle": "Exportaciones con plantilla corporativa, envíos programados, enlaces temporales e integración BI",
+      "tabs": {
+        "download": "Exportar",
+        "schedules": "Envíos programados",
+        "links": "Enlaces temporales",
+        "templates": "Plantillas",
+        "api": "API para BI"
+      },
+      "error": "Ocurrió un error",
+      "downloadTitle": "Exportar reporte",
+      "reportType": "Reporte",
+      "format": "Formato",
+      "template": "Plantilla",
+      "period": "Período",
+      "generating": "Generando...",
+      "download": "Descargar",
+      "scheduleCreated": "Envío programado creado",
+      "newSchedule": "Nuevo envío programado",
+      "name": "Nombre",
+      "frequency": "Frecuencia",
+      "frequencies": {
+        "daily": "Diario",
+        "weekly": "Semanal",
+        "monthly": "Mensual"
+      },
+      "recipients": "Destinatarios (separados por coma)",
+      "createSchedule": "Programar",
+      "lastSent": "Último envío",
+      "never": "Nunca",
+      "saved": "Guardado",
+      "sent": "Reporte enviado",
+      "sendNow": "Enviar ahora",
+      "deleted": "Eliminado",
+      "newLink": "Compartir reporte por URL temporal",
+      "expiresInHours": "Vigencia (horas)",
+      "createLink": "Generar enlace",
+      "copied": "Copiado al portapapeles",
+      "copy": "Copiar",
+      "linkOnce": "Guarda el enlace ahora: por seguridad no se puede volver a mostrar.",
+      "expires": "Vence",
+      "accesses": "{count} descargas",
+      "revoke": "Revocar",
+      "cannotDeleteDefault": "No se puede eliminar la plantilla",
+      "editTemplate": "Editar plantilla",
+      "newTemplate": "Nueva plantilla",
+      "color": "Color corporativo",
+      "header": "Encabezado",
+      "footer": "Pie de página",
+      "orientation": "Orientación PDF",
+      "landscape": "Horizontal",
+      "portrait": "Vertical",
+      "isDefault": "Usar como plantilla por defecto",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "default": "Por defecto",
+      "edit": "Editar",
+      "newKey": "Nueva API key para herramientas BI",
+      "apiHint": "Envía la clave en el header X-API-Key a /v1/bi/kpis, /v1/bi/sales, /v1/bi/financial, /v1/bi/benchmark, /v1/bi/revpas, /v1/bi/nps o /v1/bi/conversion.",
+      "expiresAt": "Vence (opcional)",
+      "createKey": "Crear API key",
+      "keyOnce": "Copia la clave ahora: no se volverá a mostrar.",
+      "lastUsed": "Último uso",
+      "revoked": "Revocada"
     }
   }
 }

@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { GeneralAlertDialog } from "@/components/ui/GeneralAlertDialog";
 import { useBookingCount } from "@/hooks/booking/useBookingCount";
 import { AttendanceSheet } from "./AttendanceSheet"; 
+import { CancelClassDialog } from "./CancelClassDialog";
 import { UserRole } from "@/lib/roles";
 
 interface EditClassPopoverProps {
@@ -134,6 +135,8 @@ export function EditClassPopover({ classId, isOpen, onClose, onSuccess }: EditCl
   };
 
   const isGlobalLoading = isLoading || isLoadingResources;
+  const isCancelled = (selectedClass as { status?: string } | null)?.status === "Cancelled";
+  const cancellationReason = (selectedClass as { cancellation_reason?: string } | null)?.cancellation_reason;
 
   return (
     <>
@@ -181,6 +184,11 @@ export function EditClassPopover({ classId, isOpen, onClose, onSuccess }: EditCl
             ) : (
               localFormData && (
                 <div className="relative flex flex-col gap-4">
+                  {isCancelled && (
+                    <div className="p-3 border border-red-200 rounded-xl text-red-700 text-[11px] font-semibold bg-red-50">
+                      {t("cancelled_notice", { reason: cancellationReason || "-" })}
+                    </div>
+                  )}
                   {!canModifyStructure && (
                     <div className="p-3 border border-orange-100 rounded-xl flex items-center gap-3 text-orange-700 text-[11px] font-semibold bg-orange-50/50">
                       <Lock className="w-4 h-4 shrink-0 text-orange-500" />
@@ -226,6 +234,16 @@ export function EditClassPopover({ classId, isOpen, onClose, onSuccess }: EditCl
 
           <div className="px-6 py-4 bg-white border-t border-slate-100 flex justify-between items-center">
             {canModifyStructure ? (
+              <div className="flex items-center">
+              {!isCancelled && (
+                <CancelClassDialog
+                  classId={classId}
+                  onCancelled={() => {
+                    onSuccess();
+                    onClose();
+                  }}
+                />
+              )}
               <GeneralAlertDialog
                 title={t("delete_confirm.title")}
                 description={t("delete_confirm.description")}
@@ -240,6 +258,7 @@ export function EditClassPopover({ classId, isOpen, onClose, onSuccess }: EditCl
                   </Button>
                 }
               />
+              </div>
             ) : <div />}
 
             <div className="flex gap-2">
